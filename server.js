@@ -13,9 +13,10 @@ app.use(express.json());
 // Set up static files
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/", {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useUnifiedTopology: true
 });
 
 // Setting up routes
@@ -23,9 +24,9 @@ const apiRoutes = require("./routes/api-routes")
 const htmlRoutes = require("./routes/html-routes")
 
 app.use("/", htmlRoutes);
-app.use(apiRoutes);
+// app.use(apiRoutes);
 
 // Launching app
 app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}!`);
+  console.log(`App running on port: http://localhost:${PORT}`);
 });
