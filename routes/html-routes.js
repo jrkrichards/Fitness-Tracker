@@ -1,9 +1,9 @@
-// Requiring path to so we can use relative routes to our HTML files
+// Setting up variables
 const express = require("express");
 const router = express.Router();
 const path = require("path");
 
-// Requiring models to query database
+// Requiring model to query database
 const db = require("../model/fitness");
 
 router.get('/', (req, res) => {
