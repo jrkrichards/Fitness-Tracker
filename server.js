@@ -20,11 +20,11 @@ app.use(express.json());
 // Set up static files
 app.use(express.static("public"));
 
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitnessdb", {
-//   useNewUrlParser: true,
-//   useFindAndModify: false,
-//   useUnifiedTopology: true
-// });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true
+});
 
 // Setting up routes
 const apiRoutes = require("./routes/api-routes")

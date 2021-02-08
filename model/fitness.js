@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const workoutSchema = new Schema ({
@@ -20,7 +19,10 @@ const workoutSchema = new Schema ({
                 trim: true,
                 required: "Enter a excercise name"
             },
-            duration: Number,
+            duration: {
+                type: Number,
+                required: "Enter a duration"
+            },
             weight: Number,
             reps: Number,
             sets: Number,
