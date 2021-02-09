@@ -137,17 +137,41 @@ let workoutSeed = [
 //     });
 
 router.get('/api/workouts', (req, res) => {
-    db.find({}, (error, data) => {
+    db.aggregate([
+        {
+            $addFields: {
+                totalDuration: { $sum: "$exercises.duration"}
+            }
+        }], (error, data) => {
         if(error) {
             res.send(error)
         } else {
-            res.send(data)
+            res.json(data)
         }
     })
 });
 
 router.get('/api/workouts/range', (req, res) => {
-    db.find({}, (error, data) => {
+    db.aggregate([
+        {
+            $addFields: {
+                totalDuration: { $sum: "$exercises.duration"}
+            }
+        },
+        {
+            $sort: {
+                _id: -1
+            }
+        },
+        { 
+            $limit: 7
+        },
+        {
+            $sort: {
+                _id: 1
+            }
+        },
+        ], (error, data) => {
         if(error) {
             res.send(error)
         } else {
@@ -176,7 +200,7 @@ router.put('/api/workouts/:id', (req, res) => {
 
 router.post('/api/workouts', (req, res) => {
     db.collection.insertOne({
-        day: new Date().setDate(new Date().getDate()),
+        day: new Date(new Date().setDate(new Date().getDate())),
         exercises: [req.body]
     })
     .then(data => {
